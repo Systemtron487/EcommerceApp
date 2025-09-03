@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { UrlObject } from "url";
 
 const NAV_LINKS = [
     { label: "Men", href: "/products?gender=men" },
@@ -21,15 +22,24 @@ export default function Navbar() {
                 className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
                 aria-label="Primary"
             >
+                {/* Logo */}
                 <Link href="/" aria-label="Nike Home" className="flex items-center">
-                    <Image src="/logo.svg" alt="Nike" width={28} height={28} priority className="invert" />
+                    <Image
+                        src="/logo.svg"
+                        alt="Nike"
+                        width={28}
+                        height={28}
+                        priority
+                        className="invert"
+                    />
                 </Link>
 
+                {/* Desktop Nav */}
                 <ul className="hidden items-center gap-8 md:flex">
                     {NAV_LINKS.map((l) => (
                         <li key={l.href}>
                             <Link
-                                href={l.href}
+                                href={l.href as unknown as UrlObject}
                                 className="text-body text-dark-900 transition-colors hover:text-dark-700"
                             >
                                 {l.label}
@@ -38,6 +48,7 @@ export default function Navbar() {
                     ))}
                 </ul>
 
+                {/* Desktop buttons */}
                 <div className="hidden items-center gap-6 md:flex">
                     <button className="text-body text-dark-900 transition-colors hover:text-dark-700">
                         Search
@@ -47,6 +58,7 @@ export default function Navbar() {
                     </button>
                 </div>
 
+                {/* Mobile Menu Button */}
                 <button
                     type="button"
                     className="inline-flex items-center justify-center rounded-md p-2 md:hidden"
@@ -61,15 +73,18 @@ export default function Navbar() {
                 </button>
             </nav>
 
+            {/* Mobile Nav */}
             <div
                 id="mobile-menu"
-                className={`border-t border-light-300 md:hidden ${open ? "block" : "hidden"}`}
+                className={`border-t border-light-300 md:hidden ${
+                    open ? "block" : "hidden"
+                }`}
             >
                 <ul className="space-y-2 px-4 py-3">
                     {NAV_LINKS.map((l) => (
                         <li key={l.href}>
                             <Link
-                                href={l.href}
+                                href={l.href as unknown as UrlObject}
                                 className="block py-2 text-body text-dark-900 hover:text-dark-700"
                                 onClick={() => setOpen(false)}
                             >
